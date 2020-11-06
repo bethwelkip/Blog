@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "macros.html" as macro %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+{{macro.displayBlogs(blogs)
+}}{% endblock %}
+
+{% include 'footer.html' %}
