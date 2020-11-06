@@ -13,13 +13,11 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(255))
     email = db.Column(db.String(255)) 
     logged_in = db.Column(db.Boolean)
-    pitches = db.relationship('Blog',backref = 'user',lazy="dynamic")
-
-
+    blogs = db.relationship('Blog',backref = 'user',lazy="dynamic")
     def __repr__(self):
         return f'{self.username}'
 
-    def get_user(self):
+    def get_id(self):
            return (self.user_id)
 
     # @property
@@ -30,8 +28,8 @@ class User(UserMixin, db.Model):
     # def password_hash(self, password):
     #     self.password = generate_password_hash(password)
     
-    # def verify_password(self, password):
-    #     return check_password_hash(self.password,password)
+    def verify_password(self, password):
+        return check_password_hash(self.password,password)
 
 class Blog(UserMixin, db.Model):
     __tablename__ = 'blogs'
@@ -47,6 +45,6 @@ class Comment(UserMixin, db.Model):
     __tablename__ = 'comments'
     comment_id = db.Column(db.Integer, primary_key = True)
     comment = db.Column(db.String())
-    pitch_id = db.Column(db.Integer,db.ForeignKey('blogs.blog_id'))
+    blog_id = db.Column(db.Integer,db.ForeignKey('blogs.blog_id'))
     def __repr__(self):
         return f'{self.comment}'
