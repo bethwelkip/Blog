@@ -1,0 +1,43 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% macro displayBlogs(blogs) %}
+{% for blog in blogs %}
+<div class="col-md-6">
+    <div class="jumbotron">
+        <h3><b>{{blog.title}}</b></h3>
+        {{blog.blog}}
+        <br>
+        <button class="bg-success" style="background-color:  cadetblue"><a href="/{{blog.title}}/comment">View
+                Blog</a></button>
+        <br>
+    </div>
+</div>
+{% endfor %}
+{% endmacro %}
+
+
+{% macro displayOwnerBlogs(blogs)%}
+{% for blog in blogs %}
+<h1 style="text-align: center; background-color:cadetblue;"> {{user.username}} </h1>
+{% endfor %}
+{% endmacro%}
+
+
+{% macro displayComments(comments) %}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h2>Comments</h2>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+{% for comment in comments %}
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <hr>{{comment}}</div>
+    <div class="col-md-4"><button>Delete</button></div>
+</div>
+{% endfor %}
+{% endmacro%}
