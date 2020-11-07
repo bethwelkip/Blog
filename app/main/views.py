@@ -12,8 +12,9 @@ from werkzeug.security import generate_password_hash,check_password_hash
 
 @main.route('/')
 def index():
-    # initialize() #initializes db
-    # form = CommentForm()
+    user = User.query.all()
+    if user:
+        initialize() #initializes db
     form = SubscribeForm()
     if form.validate_on_submit:
         name = form.name.data
