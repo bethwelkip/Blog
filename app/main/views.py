@@ -16,10 +16,9 @@ def index():
     if not user:
         initialize() #initializes db
     form = SubscribeForm()
-    if form.validate_on_submit:
-        name = form.name.data
-        email = form.email.data
-        print(email)
+    # if form.validate_on_submit:
+    #     name = form.name.data
+    #     email = form.email.data
         # subscriber = Subscriber(name = name, email = email)
         # db.session.add(subscriber)
         # db.session.commit()
@@ -84,10 +83,19 @@ def registration():
 
 @main.route('/<blog>/comment/', methods = ['GET', 'POST'])
 def comment(blog):
+    blogg = Blog.query.filter_by(title = blog).first()
     comment = CommentForm()
     update = UpdateForm()
     delete = DeleteForm()
-    if delete.validate_on_submit:
+    comments = blogg.comments
+    form = BlogForm(obj = blogg, title = blogg.title,blog = blogg.blog )
+    if update.update.data:
+        if request.method == 'GET':
+            form.title.data = blogg.title
+            form.blog.data = blogg.blog
+        form.populate_obj(blogg)
+        print("here")
+        return redirect(url_for('main.add', form = form))
         #user = User.query.filter_by(logged_in = True).first()
         #blogs = user.blogs
         #titles = [blog.title for blog in blogs]
@@ -97,8 +105,7 @@ def comment(blog):
             #
         #   
         pass
-    blog = Blog.query.filter_by(title = blog).first()
-    return render_template('comment.html', blog = blog, delete = delete, update = update, comment = comment)
+    return render_template('comment.html', blog = blogg, delete = delete, update = update, comment = comment)
 
 @main.route('/blog/new', methods = ['GET', 'POST'])
 def add():
@@ -106,8 +113,8 @@ def add():
     comment = CommentForm()
     update = CommentForm()
     delete = CommentForm()
-    blog = Blog.query.filter_by(title = blog).first()
-    return render_template('comment.html', form = form)
+    # blog = Blog.query.filter_by(title = blog).first()
+    return render_template('add.html', form = form)
 
 @main.route('/<blog>/update', methods = ['GET', 'POST'])
 def update(blog):

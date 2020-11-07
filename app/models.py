@@ -38,7 +38,7 @@ class Blog(UserMixin, db.Model):
     blog = db.Column(db.String())
     date = db.Column(db.DateTime())
     user_id = db.Column(db.Integer,db.ForeignKey('users.user_id'))
-    blogs = db.relationship('Comment',backref = 'blog',lazy="dynamic")
+    comments = db.relationship('Comment',backref = 'blog',lazy="dynamic")
     def __repr__(self):
         return f'{self.title}'
 class Comment(UserMixin, db.Model):

@@ -5,9 +5,8 @@ from wtforms import StringField, DateField, SubmitField, TextAreaField, Password
 from wtforms.validators import Required, Optional, Email, EqualTo
 from wtforms import RadioField
 class BlogForm(FlaskForm):
-    title = StringField('Pitch Title', validators = [Required()])
-    category = StringField('Pitch Category',description="For example 'Fun', 'Interview', 'Class'", validators = [Required()])
-    blog = TextAreaField('Your Pitch', validators = [Required()])
+    title = StringField('Title', validators = [Required()])
+    blog = TextAreaField('Content', validators = [Required()])
     submit = SubmitField('Submit')
 
 class LoginForm(FlaskForm):
