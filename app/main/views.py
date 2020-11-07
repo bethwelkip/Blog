@@ -31,10 +31,9 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    form = SubscribeForm()
     current_user = User.query.filter_by(logged_in = True).first()
     blogs = Blog.query.filter_by(user_id = current_user.user_id).all()
-    return render_template('profile.html', blogs = blogs, form = form)
+    return render_template('profile.html', blogs = blogs)
     
 @main.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -101,10 +100,10 @@ def add(blog):
 
 @main.route('/blog/new', methods = ['GET', 'POST'])
 def update(blog):
-    comment = CommentForm()
+    blog = Blog.query.filter_by(title = blog).first()
+    form = CommentForm()
     update = CommentForm()
     delete = CommentForm()
-    blog = Blog.query.filter_by(title = blog).first()
     return render_template('comment.html', blog = blog)
 
 
