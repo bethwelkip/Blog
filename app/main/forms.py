@@ -35,3 +35,7 @@ class DeleteForm(FlaskForm):
     delete = SubmitField("Delete")
 class UpdateForm(FlaskForm):
     update = SubmitField("Update")
+class SubscribeForm(FlaskForm):
+    name = StringField("Name", validators = [Required()])
+    email =StringField("Email", validators = [Required(), Email()])
+    submit = SubmitField("Subscribe")

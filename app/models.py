@@ -48,3 +48,11 @@ class Comment(UserMixin, db.Model):
     blog_id = db.Column(db.Integer,db.ForeignKey('blogs.blog_id'))
     def __repr__(self):
         return f'{self.comment}'
+
+class Subscriber(db.Model):
+    __tablename__ = 'subscribers'
+    subscriber_id = db.Column(db.Integer, primary_key = True)
+    email = db.Column(db.String())
+    name = db.Column(db.String())
+    def __repr__(self):
+        return f'{self.name}'

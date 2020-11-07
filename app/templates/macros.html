@@ -41,3 +41,16 @@
 </div>
 {% endfor %}
 {% endmacro%}
+
+{% macro subscribeForm(form) %}
+<form class="inline" method="post">
+    <label for="name" style="margin: 10px;">Name</label>
+    {{form.name}}
+    <label for="email" style="margin: 10px;">Email</label>
+    {{form.email}}
+    <label for="name" style="margin: 10px;"></label>
+    {{form.submit}}
+
+</form>
+<!-- {{wtf.quick_form(form)}} -->
+{% endmacro %}
