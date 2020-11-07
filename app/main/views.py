@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for, abort
 from ..models import User, Blog, Comment, Subscriber
-from .forms import BlogForm, LoginForm, RegistrationForm, CommentForm, DeleteForm, SubscribeForm
+from .forms import BlogForm,UpdateForm, LoginForm, RegistrationForm, CommentForm, DeleteForm, SubscribeForm
 from . import main
 from .fill_db import initialize
 from .. import db
@@ -13,7 +13,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 @main.route('/')
 def index():
     user = User.query.all()
-    if user:
+    if not user:
         initialize() #initializes db
     form = SubscribeForm()
     if form.validate_on_submit:
@@ -57,7 +57,7 @@ def login():
         else:
             redirect(url_for('main.login'))
     
-    return render_template('auth/login.html')
+    return render_template('auth/login.html', form = form)
 
 @main.route('/logout')
 def logout():
@@ -85,25 +85,35 @@ def registration():
 @main.route('/<blog>/comment/', methods = ['GET', 'POST'])
 def comment(blog):
     comment = CommentForm()
-    update = CommentForm()
-    delete = CommentForm()
+    update = UpdateForm()
+    delete = DeleteForm()
+    if delete.validate_on_submit:
+        #user = User.query.filter_by(logged_in = True).first()
+        #blogs = user.blogs
+        #titles = [blog.title for blog in blogs]
+        #if blog in titles:
+            #current.blog = Blog.query.filter_by(title = blog).first()
+            #comments = current_blog.comments
+            #
+        #   
+        pass
     blog = Blog.query.filter_by(title = blog).first()
-    return render_template('comment.html', blog = blog)
+    return render_template('comment.html', blog = blog, delete = delete, update = update, comment = comment)
 
 @main.route('/blog/new', methods = ['GET', 'POST'])
-def add(blog):
-    form = CommentForm()
+def add():
+    form = BlogForm()
     comment = CommentForm()
     update = CommentForm()
     delete = CommentForm()
     blog = Blog.query.filter_by(title = blog).first()
-    return render_template('comment.html', blog = blog)
+    return render_template('comment.html', form = form)
 
-@main.route('/blog/new', methods = ['GET', 'POST'])
+@main.route('/<blog>/update', methods = ['GET', 'POST'])
 def update(blog):
     blog = Blog.query.filter_by(title = blog).first()
     form = CommentForm()
-    update = CommentForm()
+    update = UpdateForm()
     delete = CommentForm()
     return render_template('comment.html', blog = blog)
 
