@@ -7,6 +7,20 @@
 {% endblock %}
 
 {% block content %}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="jumbotron" style="border-radius: 50%;border: 10px;text-align: center">
+            {{quote[1]}}
+            <br>
+            by
+            <br>
+            {{quote[0]}}
+
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
 {{macro.displayBlogs(blogs)}}
 
 
