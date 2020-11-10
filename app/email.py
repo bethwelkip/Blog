@@ -8,3 +8,9 @@ def mail_message(subject,template,to, **kwargs):
     email.body= render_template(template + ".txt",**kwargs)
     email.html = render_template(template + ".html",**kwargs)
     mail.send(email)
+def mail_subscribe(subject,template,to, **kwargs):
+    sender_email = 'bethwelcode@gmail.com'
+    email = Message(subject, sender=sender_email, recipients=[to])
+    email.body= render_template(template,**kwargs)
+    email.html = render_template(template,**kwargs)
+    mail.send(email)
