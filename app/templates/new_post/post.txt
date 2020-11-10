@@ -1,0 +1,6 @@
+Hey fam! \n
+A new Post has been created! \n
+Head to guan-blog.heroku.com to check it out! \n
+\n \n
+Best,\n
+Guan-Blog Team
